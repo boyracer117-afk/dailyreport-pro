@@ -1,0 +1,64 @@
+{
+  "name": "DailyReport",
+  "type": "object",
+  "properties": {
+    "day": {
+      "type": "string",
+      "enum": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "description": "Day of the week"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Work date"
+    },
+    "truck_registration": {
+      "type": "string",
+      "description": "Truck registration number"
+    },
+    "trailer_1_registration": {
+      "type": "string",
+      "description": "Trailer 1 registration number"
+    },
+    "trailer_2_registration": {
+      "type": "string",
+      "description": "Trailer 2 registration number"
+    },
+    "start_km": {
+      "type": "number",
+      "description": "Starting odometer reading (km)"
+    },
+    "start_time": {
+      "type": "string",
+      "description": "Start time (HH:MM)"
+    },
+    "finish_km": {
+      "type": "number",
+      "description": "Finishing odometer reading (km)"
+    },
+    "finish_time": {
+      "type": "string",
+      "description": "Finish time (HH:MM)"
+    },
+    "total_km": {
+      "type": "number",
+      "description": "Total kilometres travelled (calculated)"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes"
+    }
+  },
+  "required": [
+    "date",
+    "truck_registration"
+  ]
+}
