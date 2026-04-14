@@ -52,6 +52,30 @@
       "type": "number",
       "description": "Total kilometres travelled (calculated)"
     },
+    "fatigue_option": {
+      "type": "string",
+      "enum": [
+        "Standard Hours",
+        "BFM (Basic Fatigue Management)"
+      ],
+      "description": "Fatigue management option"
+    },
+    "fatigue_driver_type": {
+      "type": "string",
+      "enum": [
+        "Solo",
+        "Two-up"
+      ],
+      "description": "Driver type for fatigue management"
+    },
+    "fatigue_rest_breaks": {
+      "type": "string",
+      "description": "Rest breaks taken during shift"
+    },
+    "fatigue_declared": {
+      "type": "boolean",
+      "description": "Driver fatigue declaration confirmed"
+    },
     "notes": {
       "type": "string",
       "description": "Additional notes"

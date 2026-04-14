@@ -2,6 +2,7 @@ import { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { format } from "date-fns";
 import { CheckCircle } from "lucide-react";
+import FatigueDeclaration from "@/components/FatigueDeclaration";
 
 const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
@@ -17,6 +18,13 @@ function calcTotalKm(startKm, finishKm) {
   if (!isNaN(s) && !isNaN(f) && f >= s) return f - s;
   return null;
 }
+
+const defaultFatigue = {
+  option: "",
+  driver_type: "",
+  rest_breaks: "",
+  declared: false,
+};
 
 export default function ReportForm({ onSaved }) {
   const today = format(new Date(), "yyyy-MM-dd");
@@ -34,6 +42,7 @@ export default function ReportForm({ onSaved }) {
     notes: "",
   });
 
+  const [fatigue, setFatigue] = useState(defaultFatigue);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
 
@@ -55,13 +64,16 @@ export default function ReportForm({ onSaved }) {
       start_km: form.start_km !== "" ? parseFloat(form.start_km) : undefined,
       finish_km: form.finish_km !== "" ? parseFloat(form.finish_km) : undefined,
       total_km: totalKm !== null ? totalKm : undefined,
+      fatigue_option: fatigue.option || undefined,
+      fatigue_driver_type: fatigue.driver_type || undefined,
+      fatigue_rest_breaks: fatigue.rest_breaks || undefined,
+      fatigue_declared: fatigue.declared,
     };
     await base44.entities.DailyReport.create(payload);
     setSaving(false);
     setSaved(true);
     setTimeout(() => setSaved(false), 2500);
     onSaved();
-    // Reset form keeping date
     setForm((prev) => ({
       date: prev.date,
       day: prev.day,
@@ -74,6 +86,7 @@ export default function ReportForm({ onSaved }) {
       finish_time: "",
       notes: "",
     }));
+    setFatigue(defaultFatigue);
   };
 
   return (
@@ -190,7 +203,6 @@ export default function ReportForm({ onSaved }) {
           </div>
         </div>
 
-        {/* Total KM live preview */}
         <div className={`rounded-lg px-4 py-3 flex items-center justify-between ${totalKm !== null ? "bg-blue-50 border border-blue-100" : "bg-slate-50 border border-slate-100"}`}>
           <span className="text-sm font-medium text-slate-600">Total KM Travelled</span>
           <span className={`text-lg font-bold ${totalKm !== null ? "text-blue-600" : "text-slate-300"}`}>
@@ -198,6 +210,9 @@ export default function ReportForm({ onSaved }) {
           </span>
         </div>
       </div>
+
+      {/* Fatigue Declaration */}
+      <FatigueDeclaration value={fatigue} onChange={setFatigue} />
 
       {/* Notes */}
       <div className="bg-white rounded-xl border border-slate-200 p-4 space-y-2">

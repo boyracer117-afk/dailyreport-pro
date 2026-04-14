@@ -72,6 +72,29 @@ export default function ReportHistory({ reports, loading, onDeleted }) {
             </div>
           </div>
 
+          {/* Fatigue declaration badge */}
+          {r.fatigue_option && (
+            <div className="mt-2.5 pt-2.5 border-t border-slate-100 flex flex-wrap items-center gap-2">
+              <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                r.fatigue_option === "BFM (Basic Fatigue Management)"
+                  ? "bg-purple-50 text-purple-700"
+                  : "bg-blue-50 text-blue-700"
+              }`}>
+                {r.fatigue_option === "BFM (Basic Fatigue Management)" ? "BFM" : "Standard Hours"}
+              </span>
+              {r.fatigue_driver_type && (
+                <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-medium">
+                  {r.fatigue_driver_type}
+                </span>
+              )}
+              {r.fatigue_declared ? (
+                <span className="text-xs text-green-600 font-medium">✓ Declaration signed</span>
+              ) : (
+                <span className="text-xs text-amber-500 font-medium">⚠ No declaration</span>
+              )}
+            </div>
+          )}
+
           {r.notes && (
             <p className="mt-2.5 text-xs text-slate-500 border-t border-slate-100 pt-2.5">{r.notes}</p>
           )}
