@@ -3,6 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { useAuth } from "@/lib/AuthContext";
 import ReportForm from "@/components/ReportForm";
 import ReportHistory from "@/components/ReportHistory";
+import DriverProfile from "@/pages/DriverProfile";
 
 export default function DailyReport() {
   const [reports, setReports] = useState([]);
@@ -35,36 +36,22 @@ export default function DailyReport() {
 
       {/* Tabs */}
       <div className="bg-white border-b border-border px-4">
-        <div className="max-w-2xl mx-auto flex gap-0">
-          <button
-            onClick={() => setActiveTab("form")}
-            className={`px-5 py-3 text-sm font-medium border-b-2 transition-colors ${
-              activeTab === "form"
-                ? "border-primary text-primary"
-                : "border-transparent text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            New Report
-          </button>
-          <button
-            onClick={() => setActiveTab("history")}
-            className={`px-5 py-3 text-sm font-medium border-b-2 transition-colors ${
-              activeTab === "history"
-                ? "border-primary text-primary"
-                : "border-transparent text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            History
-          </button>
+        <div className="max-w-2xl mx-auto flex gap-0 overflow-x-auto">
+          {["form", "history", "profile"].map((tab, i) => (
+            <button key={tab} onClick={() => setActiveTab(tab)}
+              className={`px-5 py-3 text-sm font-medium border-b-2 whitespace-nowrap transition-colors ${
+                activeTab === tab ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"
+              }`}>
+              {["New Report", "History", "My Profile"][i]}
+            </button>
+          ))}
         </div>
       </div>
 
       <div className="max-w-2xl mx-auto px-4 py-6">
-        {activeTab === "form" ? (
-          <ReportForm onSaved={fetchReports} />
-        ) : (
-          <ReportHistory reports={reports} loading={loading} onDeleted={fetchReports} />
-        )}
+        {activeTab === "form" && <ReportForm onSaved={fetchReports} />}
+        {activeTab === "history" && <ReportHistory reports={reports} loading={loading} onDeleted={fetchReports} />}
+        {activeTab === "profile" && <DriverProfile />}
       </div>
     </div>
   );

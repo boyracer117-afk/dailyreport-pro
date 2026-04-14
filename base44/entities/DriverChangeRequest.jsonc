@@ -1,0 +1,72 @@
+{
+  "name": "DriverChangeRequest",
+  "type": "object",
+  "properties": {
+    "driver_id": {
+      "type": "string",
+      "description": "Reference to the Driver entity ID"
+    },
+    "driver_name": {
+      "type": "string",
+      "description": "Driver name (denormalised for display)"
+    },
+    "driver_email": {
+      "type": "string",
+      "description": "Driver email (denormalised)"
+    },
+    "change_type": {
+      "type": "string",
+      "enum": [
+        "personal_details",
+        "document_upload"
+      ],
+      "description": "Type of change request"
+    },
+    "proposed_changes": {
+      "type": "object",
+      "description": "JSON object of proposed field changes (for personal_details)"
+    },
+    "document_type": {
+      "type": "string",
+      "enum": [
+        "Licence",
+        "Medical Certificate",
+        "BFM Certificate",
+        "AFM Certificate",
+        "Other"
+      ],
+      "description": "Type of uploaded document"
+    },
+    "document_url": {
+      "type": "string",
+      "description": "URL of the uploaded file"
+    },
+    "document_filename": {
+      "type": "string",
+      "description": "Original filename of the uploaded document"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Driver notes about this change"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Pending",
+        "Approved",
+        "Rejected"
+      ],
+      "default": "Pending",
+      "description": "Approval status"
+    },
+    "admin_notes": {
+      "type": "string",
+      "description": "Admin notes when approving or rejecting"
+    }
+  },
+  "required": [
+    "driver_id",
+    "change_type",
+    "status"
+  ]
+}

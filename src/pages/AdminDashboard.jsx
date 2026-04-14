@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { format } from "date-fns";
-import { Truck, ShieldCheck, Trash2, Download, Filter, User, Calendar, BarChart2, DollarSign, FileText, LogOut, HardDrive, BookOpen } from "lucide-react";
+import { Truck, ShieldCheck, Trash2, Download, Filter, User, Calendar, BarChart2, DollarSign, FileText, LogOut, HardDrive, BookOpen, Bell } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
 import DriversTab from "@/components/admin/DriversTab";
 import VehiclesTab from "@/components/admin/VehiclesTab";
@@ -10,6 +10,7 @@ import PayRatesTab from "@/components/admin/PayRatesTab";
 import PayrollTab from "@/components/admin/PayrollTab";
 import BackupTab from "@/components/admin/BackupTab";
 import UserGuideTab from "@/components/admin/UserGuideTab";
+import ApprovalsTab from "@/components/admin/ApprovalsTab";
 
 function StatCard({ label, value, sub, color = "blue" }) {
   const colors = {
@@ -220,6 +221,7 @@ const TABS = [
   { id: "payperiods", label: "Pay Periods", icon: Calendar },
   { id: "payrates", label: "Pay Rates", icon: DollarSign },
   { id: "payroll", label: "Payroll", icon: FileText },
+  { id: "approvals", label: "Approvals", icon: Bell },
   { id: "backup", label: "Backup", icon: HardDrive },
   { id: "guide", label: "User Guide", icon: BookOpen },
 ];
@@ -265,6 +267,7 @@ export default function AdminDashboard() {
         {activeTab === "payperiods" && <PayPeriodsTab />}
         {activeTab === "payrates" && <PayRatesTab />}
         {activeTab === "payroll" && <PayrollTab />}
+        {activeTab === "approvals" && <ApprovalsTab />}
         {activeTab === "backup" && <BackupTab />}
         {activeTab === "guide" && <UserGuideTab />}
       </div>
