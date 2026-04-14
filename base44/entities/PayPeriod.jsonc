@@ -1,0 +1,50 @@
+{
+  "name": "PayPeriod",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Pay period label, e.g. Fortnight A"
+    },
+    "frequency": {
+      "type": "string",
+      "enum": [
+        "Weekly",
+        "Fortnightly",
+        "Monthly"
+      ],
+      "description": "Pay frequency"
+    },
+    "start_day": {
+      "type": "string",
+      "enum": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "description": "Which day of the week the pay period starts (for Weekly/Fortnightly)"
+    },
+    "period_start_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Anchor start date for the pay period cycle"
+    },
+    "monthly_start_day": {
+      "type": "number",
+      "description": "Day of the month the period starts (for Monthly), e.g. 1 or 15"
+    },
+    "is_default": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this is the default pay period"
+    }
+  },
+  "required": [
+    "name",
+    "frequency"
+  ]
+}

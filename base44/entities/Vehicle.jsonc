@@ -1,0 +1,52 @@
+{
+  "name": "Vehicle",
+  "type": "object",
+  "properties": {
+    "registration": {
+      "type": "string",
+      "description": "Vehicle registration number"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "Truck",
+        "Trailer"
+      ],
+      "description": "Vehicle type"
+    },
+    "make": {
+      "type": "string",
+      "description": "Vehicle make / manufacturer"
+    },
+    "model": {
+      "type": "string",
+      "description": "Vehicle model"
+    },
+    "year": {
+      "type": "number",
+      "description": "Year of manufacture"
+    },
+    "combination_group": {
+      "type": "string",
+      "description": "Combination label, e.g. Combo A \u2014 groups truck + trailers together"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Active",
+        "In Service",
+        "Inactive"
+      ],
+      "default": "Active",
+      "description": "Vehicle operational status"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes"
+    }
+  },
+  "required": [
+    "registration",
+    "type"
+  ]
+}

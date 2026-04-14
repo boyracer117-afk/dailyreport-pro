@@ -1,0 +1,59 @@
+{
+  "name": "Driver",
+  "type": "object",
+  "properties": {
+    "full_name": {
+      "type": "string",
+      "description": "Driver's full name"
+    },
+    "employee_id": {
+      "type": "string",
+      "description": "Employee / payroll ID"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Contact phone number"
+    },
+    "email": {
+      "type": "string",
+      "description": "Contact email"
+    },
+    "licence_number": {
+      "type": "string",
+      "description": "Driver's licence number"
+    },
+    "licence_class": {
+      "type": "string",
+      "description": "Licence class (e.g. HC, MC)"
+    },
+    "fatigue_accreditation": {
+      "type": "string",
+      "enum": [
+        "Standard Hours",
+        "BFM (Basic Fatigue Management)",
+        "AFM (Advanced Fatigue Management)"
+      ],
+      "description": "Fatigue management accreditation level"
+    },
+    "assigned_vehicle_id": {
+      "type": "string",
+      "description": "ID of currently assigned vehicle"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Active",
+        "Inactive"
+      ],
+      "default": "Active",
+      "description": "Driver employment status"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes"
+    }
+  },
+  "required": [
+    "full_name"
+  ]
+}
