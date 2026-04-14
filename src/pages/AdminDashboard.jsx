@@ -231,25 +231,25 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-slate-50 font-inter">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200 px-4 py-4">
+      <div className="bg-foreground border-b border-border px-4 py-4">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-bold text-slate-800">Admin Dashboard</h1>
-            <p className="text-sm text-slate-500 mt-0.5">Manage drivers, vehicles, reports & pay periods</p>
+            <h1 className="text-xl font-bold text-primary tracking-wide" style={{fontFamily:"var(--font-rajdhani)"}}>Kiwik Cartage</h1>
+            <p className="text-xs text-muted-foreground mt-0.5 tracking-wider uppercase">Admin Dashboard</p>
           </div>
-          <button onClick={() => logout()} className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 px-3 py-1.5 rounded-lg hover:bg-slate-100">
+          <button onClick={() => logout()} className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/10">
             <LogOut className="w-3.5 h-3.5" /> Log out
           </button>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="bg-white border-b border-slate-200 px-4">
+      <div className="bg-white border-b border-border px-4">
         <div className="max-w-5xl mx-auto flex gap-0 overflow-x-auto">
           {TABS.map(({ id, label, icon: Icon }) => (
             <button key={id} onClick={() => setActiveTab(id)}
               className={`flex items-center gap-1.5 px-4 py-3 text-sm font-medium border-b-2 whitespace-nowrap transition-colors ${
-                activeTab === id ? "border-blue-600 text-blue-600" : "border-transparent text-slate-500 hover:text-slate-700"
+                activeTab === id ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"
               }`}>
               <Icon className="w-4 h-4" />
               {label}
