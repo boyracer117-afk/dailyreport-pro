@@ -1,0 +1,98 @@
+{
+  "name": "PayRun",
+  "type": "object",
+  "properties": {
+    "period_start": {
+      "type": "string",
+      "format": "date",
+      "description": "Pay period start date"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date",
+      "description": "Pay period end date"
+    },
+    "pay_period_id": {
+      "type": "string",
+      "description": "Reference to PayPeriod"
+    },
+    "driver_id": {
+      "type": "string",
+      "description": "Reference to Driver"
+    },
+    "driver_name": {
+      "type": "string",
+      "description": "Driver name (denormalised)"
+    },
+    "total_km": {
+      "type": "number",
+      "description": "Total KM in the period"
+    },
+    "total_hours": {
+      "type": "number",
+      "description": "Total hours worked in the period"
+    },
+    "ordinary_hours": {
+      "type": "number",
+      "description": "Ordinary hours (pre-overtime)"
+    },
+    "overtime_hours": {
+      "type": "number",
+      "description": "Overtime hours"
+    },
+    "days_worked": {
+      "type": "number",
+      "description": "Number of days worked"
+    },
+    "base_pay": {
+      "type": "number",
+      "description": "Base pay (km rate or ordinary hours pay)"
+    },
+    "overtime_pay": {
+      "type": "number",
+      "description": "Overtime pay total"
+    },
+    "meal_allowance": {
+      "type": "number",
+      "description": "Total meal allowance"
+    },
+    "overnight_allowance": {
+      "type": "number",
+      "description": "Total overnight allowance"
+    },
+    "tool_allowance": {
+      "type": "number",
+      "description": "Tool/uniform allowance"
+    },
+    "other_allowance": {
+      "type": "number",
+      "description": "Other allowance total"
+    },
+    "gross_pay": {
+      "type": "number",
+      "description": "Total gross pay before super"
+    },
+    "superannuation": {
+      "type": "number",
+      "description": "Superannuation amount"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "Approved",
+        "Paid"
+      ],
+      "default": "Draft",
+      "description": "Pay run status"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "period_start",
+    "period_end",
+    "driver_id"
+  ]
+}

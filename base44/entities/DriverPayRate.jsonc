@@ -1,0 +1,68 @@
+{
+  "name": "DriverPayRate",
+  "type": "object",
+  "properties": {
+    "driver_id": {
+      "type": "string",
+      "description": "Reference to Driver entity ID"
+    },
+    "driver_name": {
+      "type": "string",
+      "description": "Driver name (denormalised for display)"
+    },
+    "pay_type": {
+      "type": "string",
+      "enum": [
+        "Per KM",
+        "Hourly"
+      ],
+      "description": "Pay basis"
+    },
+    "rate": {
+      "type": "number",
+      "description": "Rate in AUD \u2014 $ per km, or $ per hour"
+    },
+    "overtime_rate": {
+      "type": "number",
+      "description": "Hourly overtime rate (applies after ordinary_hours per day)"
+    },
+    "ordinary_hours": {
+      "type": "number",
+      "default": 8,
+      "description": "Ordinary hours per day before overtime kicks in"
+    },
+    "meal_allowance_per_day": {
+      "type": "number",
+      "description": "Meal allowance per eligible day (AUD)"
+    },
+    "overnight_allowance_per_night": {
+      "type": "number",
+      "description": "Away-from-home overnight allowance per night (AUD)"
+    },
+    "tool_allowance_per_week": {
+      "type": "number",
+      "description": "Tool / uniform allowance per week (AUD)"
+    },
+    "other_allowance_label": {
+      "type": "string",
+      "description": "Label for any additional allowance"
+    },
+    "other_allowance_per_day": {
+      "type": "number",
+      "description": "Amount for the other allowance per day (AUD)"
+    },
+    "superannuation_rate": {
+      "type": "number",
+      "default": 11.5,
+      "description": "Superannuation rate as a percentage (e.g. 11.5)"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "driver_id",
+    "pay_type",
+    "rate"
+  ]
+}
