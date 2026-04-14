@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { format } from "date-fns";
-import { Truck, ShieldCheck, Trash2, Download, Filter, User, Calendar, BarChart2, DollarSign, FileText } from "lucide-react";
+import { Truck, ShieldCheck, Trash2, Download, Filter, User, Calendar, BarChart2, DollarSign, FileText, LogOut } from "lucide-react";
+import { useAuth } from "@/lib/AuthContext";
 import DriversTab from "@/components/admin/DriversTab";
 import VehiclesTab from "@/components/admin/VehiclesTab";
 import PayPeriodsTab from "@/components/admin/PayPeriodsTab";
@@ -221,14 +222,20 @@ const TABS = [
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("reports");
+  const { logout } = useAuth();
 
   return (
     <div className="min-h-screen bg-slate-50 font-inter">
       {/* Header */}
       <div className="bg-white border-b border-slate-200 px-4 py-4">
-        <div className="max-w-5xl mx-auto">
-          <h1 className="text-xl font-bold text-slate-800">Admin Dashboard</h1>
-          <p className="text-sm text-slate-500 mt-0.5">Manage drivers, vehicles, reports & pay periods</p>
+        <div className="max-w-5xl mx-auto flex items-center justify-between">
+          <div>
+            <h1 className="text-xl font-bold text-slate-800">Admin Dashboard</h1>
+            <p className="text-sm text-slate-500 mt-0.5">Manage drivers, vehicles, reports & pay periods</p>
+          </div>
+          <button onClick={() => logout()} className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 px-3 py-1.5 rounded-lg hover:bg-slate-100">
+            <LogOut className="w-3.5 h-3.5" /> Log out
+          </button>
         </div>
       </div>
 

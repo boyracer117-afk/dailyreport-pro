@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
+import { useAuth } from "@/lib/AuthContext";
 import ReportForm from "@/components/ReportForm";
 import ReportHistory from "@/components/ReportHistory";
 
@@ -7,6 +8,7 @@ export default function DailyReport() {
   const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("form");
+  const { user, logout } = useAuth();
 
   const fetchReports = async () => {
     const data = await base44.entities.DailyReport.list("-date", 50);
@@ -23,8 +25,11 @@ export default function DailyReport() {
       {/* Header */}
       <div className="bg-white border-b border-slate-200 px-4 py-4">
         <div className="max-w-2xl mx-auto">
-          <h1 className="text-xl font-bold text-slate-800">Daily Trip Report</h1>
-          <p className="text-sm text-slate-500 mt-0.5">Record your daily vehicle & km details</p>
+          <div>
+            <h1 className="text-xl font-bold text-slate-800">Daily Trip Report</h1>
+            <p className="text-sm text-slate-500 mt-0.5">{user?.full_name || "Driver"}</p>
+          </div>
+          <button onClick={() => logout()} className="text-xs text-slate-400 hover:text-slate-600 px-3 py-1.5 rounded-lg hover:bg-slate-100">Log out</button>
         </div>
       </div>
 

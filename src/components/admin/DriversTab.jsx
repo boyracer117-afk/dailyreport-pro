@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
-import { Plus, Pencil, Trash2, User, Truck } from "lucide-react";
+import { Plus, Pencil, Trash2, User, Truck, Mail, CheckCircle } from "lucide-react";
 
 const EMPTY = {
   full_name: "", employee_id: "", phone: "", email: "",
@@ -97,6 +97,14 @@ function DriverModal({ driver, vehicles, onSave, onClose }) {
           <button onClick={onClose} className="px-4 py-2 text-sm text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg font-medium">Cancel</button>
           <button onClick={handleSave} className="px-4 py-2 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded-lg font-medium">Save Driver</button>
         </div>
+        {/* App access note */}
+        {form.email && !driver?.id && (
+          <div className="px-5 pb-4">
+            <div className="bg-blue-50 border border-blue-100 rounded-lg p-3 text-xs text-blue-700">
+              <strong>App Access:</strong> After saving, use the "Invite" button on the driver card to send a login invite to <span className="font-semibold">{form.email}</span>. They will log in as a driver (role: user) and only see the trip report form.
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -106,7 +114,9 @@ export default function DriversTab() {
   const [drivers, setDrivers] = useState([]);
   const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [modal, setModal] = useState(null); // null | "new" | driver object
+  const [modal, setModal] = useState(null);
+  const [inviting, setInviting] = useState(null);
+  const [invitedIds, setInvitedIds] = useState([]);
 
   const fetch = async () => {
     const [d, v] = await Promise.all([
@@ -124,16 +134,27 @@ export default function DriversTab() {
     setDrivers(p => p.filter(d => d.id !== id));
   };
 
+  const handleInvite = async (driver) => {
+    if (!driver.email) { alert("This driver has no email address. Edit the driver and add an email first."); return; }
+    setInviting(driver.id);
+    await base44.users.inviteUser(driver.email, "user");
+    setInvitedIds(p => [...p, driver.id]);
+    setInviting(null);
+  };
+
   const getVehicle = (id) => vehicles.find(v => v.id === id);
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-3">
         <p className="text-sm text-slate-500">{drivers.length} driver{drivers.length !== 1 ? "s" : ""} registered</p>
         <button onClick={() => setModal("new")}
           className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg">
           <Plus className="w-4 h-4" /> Add Driver
         </button>
+      </div>
+      <div className="bg-blue-50 border border-blue-100 rounded-xl p-3 mb-4 text-xs text-blue-700">
+        <strong>How driver access works:</strong> Add each driver with their email address, then click <strong>Invite</strong> to send them a login link. Drivers log in with role <em>user</em> and only see the trip report form. Admins see this dashboard.
       </div>
 
       {loading ? (
@@ -169,7 +190,17 @@ export default function DriversTab() {
                     </div>
                   </div>
                 </div>
-                <div className="flex gap-1 flex-shrink-0">
+                <div className="flex gap-1 flex-shrink-0 items-center">
+                  {invitedIds.includes(d.id) ? (
+                    <span className="flex items-center gap-1 text-xs text-green-600 font-medium px-2"><CheckCircle className="w-3.5 h-3.5" /> Invited</span>
+                  ) : (
+                    <button onClick={() => handleInvite(d)} disabled={inviting === d.id}
+                      title={d.email ? `Invite ${d.email}` : "Add email to invite"}
+                      className={`flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-lg font-medium transition-colors ${d.email ? "text-blue-600 bg-blue-50 hover:bg-blue-100" : "text-slate-300 bg-slate-50 cursor-not-allowed"}`}>
+                      <Mail className="w-3.5 h-3.5" />
+                      {inviting === d.id ? "..." : "Invite"}
+                    </button>
+                  )}
                   <button onClick={() => setModal(d)} className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg">
                     <Pencil className="w-4 h-4" />
                   </button>
